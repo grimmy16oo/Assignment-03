@@ -1,9 +1,8 @@
 // Increase the number of hearts in navbar
 document.querySelectorAll(".heart-icon").forEach(icon => {
-    icon.addEventListener("click", function (e) 
-    {
+    icon.addEventListener("click", function (e) {
         e.preventDefault();
-        
+
         const heartCount = parseInt(document.getElementById("heart-count").innerText);
         const cnt = heartCount + 1;
         document.getElementById("heart-count").innerText = cnt;
@@ -12,11 +11,10 @@ document.querySelectorAll(".heart-icon").forEach(icon => {
 
 // Handle call button clicks
 document.querySelectorAll(".call-btn").forEach(call => {
-    call.addEventListener("click", function (e) 
-    {
+    call.addEventListener("click", function (e) {
         e.preventDefault();
 
-        const card = e.target.closest(".card"); 
+        const card = e.target.closest(".card");
 
         const coinCount = parseInt(document.getElementById("coin-count").innerText);
         const alertText = card.querySelector(".alert-text").innerText;
@@ -47,16 +45,36 @@ document.querySelectorAll(".call-btn").forEach(call => {
               </div>`;
 
             cardContainer.appendChild(div);
-        } 
-        else 
-        {
+        }
+        else {
             alert("Not enough coins.You need at least 20 coins");
         }
     });
 });
 
-document.getElementById("clear-btn").addEventListener("click", function(e) {
+//clear history
+document.getElementById("clear-btn").addEventListener("click", function (e) {
     e.preventDefault();
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = ""; // clears all call history
-}); 
+});
+
+//copy buttons
+document.querySelectorAll(".copy-btn").forEach(button => {
+    button.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        
+        const card = button.closest(".card");
+        const textToCopy = card.querySelector(".alert-no").innerText;
+
+        // Copy text to clipboard
+        navigator.clipboard.writeText(textToCopy).then(() => 
+            {
+                alert(`Copied: "${textToCopy}"`);
+                
+                const copyCount = parseInt(document.getElementById("copy-count").innerText);
+                document.getElementById("copy-count").innerText = copyCount + 1;
+            })
+    });
+});
